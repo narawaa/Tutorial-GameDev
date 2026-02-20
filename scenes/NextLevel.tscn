@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://b7ta86phoivh0"]
+
+[ext_resource type="PackedScene" uid="uid://4dcae4gpc0p3" path="res://scenes/SnowPlatform.tscn" id="1_2jvwk"]
+[ext_resource type="Script" uid="uid://b5k8ttgh8c377" path="res://scenes/NextLevel.gd" id="1_nsxnr"]
+[ext_resource type="Script" uid="uid://dm8g7pm58d2ym" path="res://scenes/PlatformWhite.gd" id="1_v18se"]
+[ext_resource type="PackedScene" uid="uid://kc5hs7q1fc4l" path="res://scenes/GreenShip.tscn" id="2_v18se"]
+[ext_resource type="Script" uid="uid://x2rdmjyr1ttw" path="res://scenes/ObjectiveArea.gd" id="3_nsxnr"]
+[ext_resource type="Script" uid="uid://uajdkac131gm" path="res://scenes/GreenShip.gd" id="5_5mrnn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v18se"]
+size = Vector2(140, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5mrnn"]
+size = Vector2(138.75, 79)
+
+[node name="NextLevel" type="Node2D" unique_id=2087387910]
+script = ExtResource("1_nsxnr")
+
+[node name="PlatformWhite" type="StaticBody2D" parent="." unique_id=752384637]
+script = ExtResource("1_v18se")
+
+[node name="SnowPlatform" parent="PlatformWhite" unique_id=53743929 instance=ExtResource("1_2jvwk")]
+position = Vector2(36, 571)
+
+[node name="SnowPlatform2" parent="PlatformWhite" unique_id=2083832441 instance=ExtResource("1_2jvwk")]
+position = Vector2(106, 571)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatformWhite" unique_id=731745078]
+position = Vector2(71, 571)
+shape = SubResource("RectangleShape2D_v18se")
+
+[node name="GreenShip" parent="." unique_id=1067083753 instance=ExtResource("2_v18se")]
+position = Vector2(74, 439)
+contact_monitor = true
+max_contacts_reported = 5
+script = ExtResource("5_5mrnn")
+
+[node name="ObjectiveArea" type="Area2D" parent="." unique_id=74929679]
+script = ExtResource("3_nsxnr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ObjectiveArea" unique_id=1424147259]
+position = Vector2(1082, 40)
+shape = SubResource("RectangleShape2D_5mrnn")
+
+[connection signal="body_entered" from="ObjectiveArea" to="ObjectiveArea" method="_on_ObjectiveArea_body_entered"]
